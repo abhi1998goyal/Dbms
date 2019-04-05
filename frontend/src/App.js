@@ -4,7 +4,8 @@ import './App.css';
 import 'antd/dist/antd.css';
 import axios from 'axios'
 import {Row,Col,Button} from 'antd'
-import ItemView from './Components/ItemView';
+
+import Events from './Components/Events'
 
 
 
@@ -56,14 +57,15 @@ class App extends Component {
       description:'Description for the event.....',
       date:'05-04-2019'
       }
+      
     ]
    }
  }
   componentDidMount()
   {
-    axios.get('http://127.0.0.1:8000/api/').then(
-      res=>console.log(res.data)
-    )
+    // axios.get('http://127.0.0.1:8000/api/').then(
+    //   res=>console.log(res.data)
+    // )
   }
   render() {
     return (
@@ -82,10 +84,7 @@ class App extends Component {
         </div>
         <div  className='App-body' style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
             <center><Row>
-           {this.state.events.map(item=>(
-            <Col span={8}> <ItemView name={item.name} desc={item.description} date={item.date} /></Col>
-
-           ))}
+           <Events events={this.state.events} />
             </Row></center>
         </div>
       </div>
