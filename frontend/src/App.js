@@ -29,6 +29,32 @@ class App extends Component {
         name:'XYZ',
       description:'Description for the event.....',
       date:'05-04-2019'
+      },
+      {
+        name:'UVW',
+      description:'Description for the event.....',
+      date:'05-04-2019'
+      },
+      {
+        name:'ABC',
+        description:'Description for the event.....',
+        date:'05-04-2019'
+    
+      },
+      {
+        name:'PQR',
+        description:'Description for the event.....',
+        date:'05-04-2019'
+      },
+      {
+        name:'XYZ',
+      description:'Description for the event.....',
+      date:'05-04-2019'
+      },
+      {
+        name:'UVW',
+      description:'Description for the event.....',
+      date:'05-04-2019'
       }
     ]
    }
@@ -55,12 +81,12 @@ class App extends Component {
         </header>
         </div>
         <div  className='App-body' style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
-            <Row>
+            <center><Row>
            {this.state.events.map(item=>(
             <Col span={8}> <ItemView name={item.name} desc={item.description} date={item.date} /></Col>
 
            ))}
-            </Row>
+            </Row></center>
         </div>
       </div>
     );
