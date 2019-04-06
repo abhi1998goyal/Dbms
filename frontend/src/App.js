@@ -7,6 +7,7 @@ import {Row,Col,Button,Modal} from 'antd'
 
 import Events from './Components/Events'
 import Auth from './Components/Auth'
+import EventDetails from './Components/EventDetails'
 
  
 
@@ -81,7 +82,7 @@ class App extends Component {
         </header>
         </div>
         <div  className='App-body' style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
-             
+             {/* <EventDetails title='Hackathon 2.0' society='CCS' /> */}
               
         </div>
       </div>
