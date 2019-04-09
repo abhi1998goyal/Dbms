@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\ABHIGO~1\Desktop\djreact\backend\env"
+set "VIRTUAL_ENV=C:\Users\ABHIGO~1\Desktop\djbegin\backend\env"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
