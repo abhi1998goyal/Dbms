@@ -14,7 +14,7 @@ class Organizer(Member):
     # organizer_name=model.CharField(max_length=30)
     society=models.CharField(max_length=20,choices=societies)
     ident_no=models.IntegerField(primary_key=True)
-    def __str__(self):
+    def __int__(self):
         return self.ident_no
 class Events(models.Model):
     events_type=(('s','Sports'),('t','Technical'),('c','Cultural'))
