@@ -7,7 +7,14 @@ class Events extends Component {
         return (
             <div>
                 {this.props.events.map(item=>(
-            <Col span={8}> <ItemView name={item.name} desc={item.description} date={item.date} /></Col>
+            <Col key={item.id} span={8}> 
+                <ItemView 
+                name={item.name} 
+                desc={item.description} 
+                date={item.date} 
+                linkId={item.id} 
+                socName={item.societyName}/>
+            </Col>
 
            ))}
             </div>

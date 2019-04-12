@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Card} from 'antd'
+import {Card,Button} from 'antd'
+import {Link} from 'react-router-dom'
 
 class ItemView extends Component {
     render() {
@@ -9,6 +10,14 @@ class ItemView extends Component {
                 <p>{this.props.name}</p>
                 <p>{this.props.desc}</p>
                 <p>{this.props.date}</p>
+                <Button><Link to={{
+                    pathname:`/events/${this.props.linkId}`,
+                    query:{
+                        title:this.props.name,
+                        societyName:this.props.socName
+                    }
+                    
+                }}>More Information</Link></Button>
 
             </Card>
         );

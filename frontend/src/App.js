@@ -8,73 +8,28 @@ import {Row,Col,Button,Modal} from 'antd'
 import Events from './Components/Events'
 import Auth from './Components/Auth'
 import EventDetails from './Components/EventDetails'
+import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom';
+import EventsPage from './Pages/EventsPage';
+import AboutPage from './Pages/AboutPage';
+import AuthPage from './Pages/AuthPage';
 
  
 
 class App extends Component {
- constructor()
- {
-   super()
-   this.state={
-     events:[
-      {
-        name:'ABC',
-        description:'Description for the event.....',
-        date:'05-04-2019'
-    
-      },
-      {
-        name:'PQR',
-        description:'Description for the event.....',
-        date:'05-04-2019'
-      },
-      {
-        name:'XYZ',
-      description:'Description for the event.....',
-      date:'05-04-2019'
-      },
-      {
-        name:'UVW',
-      description:'Description for the event.....',
-      date:'05-04-2019'
-      },
-      {
-        name:'ABC',
-        description:'Description for the event.....',
-        date:'05-04-2019'
-    
-      },
-      {
-        name:'PQR',
-        description:'Description for the event.....',
-        date:'05-04-2019'
-      },
-      {
-        name:'XYZ',
-      description:'Description for the event.....',
-      date:'05-04-2019'
-      },
-      {
-        name:'UVW',
-      description:'Description for the event.....',
-      date:'05-04-2019'
-      }
-      
-    ]
-  
-  }
- }
+
+
  
   render() {
     return (
-      <div>
+      <Router>
+        <div>
         <div className='App-header' style={{borderRadius: 1}}>
         <header style={{marginTop: 20}}>
            <Row>
              <center>
              <Col span={6}><Button  type='primary'>Home</Button></Col>
-             <Col span={6}><Button type='primary'>Events</Button></Col>
-             <Col span={6}><Button type='primary'>About Us</Button></Col>
+             <Col span={6}><Button type='primary'><Link to='/events'>Events</Link></Button></Col>
+             <Col span={6}><Button type='primary'><Link to='/about-us'>About Us</Link></Button></Col>
              <Col span={6}><Auth /></Col>
 
              </center>
@@ -82,10 +37,16 @@ class App extends Component {
         </header>
         </div>
         <div  className='App-body' style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
-             {/* <EventDetails title='Hackathon 2.0' society='CCS' /> */}
+              <Switch>
+                <Route exact path='/events' component={EventsPage} />
+                <Route path='/about-us' component={AboutPage}/>
+                <Route  path='/events/:id' component={EventDetails} /> 
+                <Route path='/auth' component={AuthPage} />
+              </Switch>
               
         </div>
       </div>
+      </Router>
     );
   }
 }

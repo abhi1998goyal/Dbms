@@ -6,8 +6,13 @@ class EventDetails extends Component {
     {
         super()
         this.state={
-            liked:false
+            liked:false,
+            data:[]
         }
+    }
+    componentDidMount()
+    {
+         this.setState({data:this.props.location.query})
     }
 onLikePress()
 {
@@ -15,6 +20,7 @@ onLikePress()
 }
     
     render() {
+        
         return (
             <div>
                <Row>
@@ -23,7 +29,7 @@ onLikePress()
                    <Col span={16}>
                    <center>
                    <div style={{fontSize: 28,fontWeight:'700'}}>
-                   {this.props.title}
+                   {this.state.data.title}
                    <span style={{float:'right'}}>
                        {
                            this.state.liked==true?
@@ -35,7 +41,7 @@ onLikePress()
                    
                     
                    </div>
-                <center><h4>By {this.props.society}</h4></center>
+                <center><h4>By {this.state.data.societyName}</h4></center>
                 <p style={{fontSize: 22}}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the 
                 industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and

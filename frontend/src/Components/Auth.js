@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Form,Button,Input,Modal} from 'antd'
+import {Link} from 'react-router-dom'
  
 
 class Auth extends Component {
@@ -26,7 +27,7 @@ class Auth extends Component {
         return (
              <div>
                  <Button type='primary' style={{backgroundColor: '#DB0000',borderWidth:'0'}} onClick={this.showModal}>
-             Register</Button> 
+             Sign In </Button> 
             <Modal
             visible={this.state.visible}
             onOk={this.hideModal}
@@ -41,7 +42,9 @@ class Auth extends Component {
                 <Form.Item>
                 <Input size='large' placeholder='Enter Password' type='password' />
                 </Form.Item><br/>
-                 
+                 <Form.Item>
+                 <Link to='/auth' onClick={this.hideModal}>Don't Have an Account Yet? Click Here</Link>
+                 </Form.Item>
                 </center>
             </Form> 
             </Modal>
