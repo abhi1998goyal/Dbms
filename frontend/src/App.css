@@ -19,7 +19,9 @@
 .App-body
 {
    
-  min-height: 200vh
+  min-height: 300vh;
+  top:0;
+
   
 }
 

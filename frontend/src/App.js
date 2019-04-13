@@ -28,8 +28,8 @@ class App extends Component {
            <Row>
              <center>
              <Col span={6}><Button  type='primary'>Home</Button></Col>
-             <Col span={6}><Button type='primary'><Link to='/events'>Events</Link></Button></Col>
-             <Col span={6}><Button type='primary'><Link to='/about-us'>About Us</Link></Button></Col>
+             <Col span={6}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
+             <Col span={6}><Link to='/about-us'><Button type='primary'>About Us</Button></Link></Col>
              <Col span={6}><Auth /></Col>
 
              </center>
@@ -44,6 +44,9 @@ class App extends Component {
                 <Route path='/auth' component={AuthPage} />
               </Switch>
               
+        </div>
+        <div>
+          <h1>FOOTER</h1>
         </div>
       </div>
       </Router>
