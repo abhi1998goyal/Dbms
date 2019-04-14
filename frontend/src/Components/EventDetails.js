@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Row,Col,Button} from 'antd'
+import axios from 'axios'
 
 class EventDetails extends Component {
     constructor()
@@ -12,7 +13,9 @@ class EventDetails extends Component {
     }
     componentDidMount()
     {
-         this.setState({data:this.props.location.query})
+
+        const soc_id=this.props.match.params.soc_id
+        axios.get(`http://127.0.0.1:8000/api/Event/${soc_id}`).then((res)=>this.setState({data:res.data}))
     }
 onLikePress()
 {
@@ -29,7 +32,7 @@ onLikePress()
                    <Col span={16}>
                    <center>
                    <div style={{fontSize: 28,fontWeight:'700'}}>
-                   {this.state.data.title}
+                   {this.state.data.event_name}
                    <span style={{float:'right'}}>
                        {
                            this.state.liked==true?
@@ -41,7 +44,7 @@ onLikePress()
                    
                     
                    </div>
-                <center><h4>By {this.state.data.societyName}</h4></center>
+                <center><h4>By {this.state.data.organizer_id}</h4></center>
                 <p style={{fontSize: 22}}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the 
                 industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and

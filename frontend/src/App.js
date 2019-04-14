@@ -40,7 +40,7 @@ class App extends Component {
               <Switch>
                 <Route exact path='/events' component={EventsPage} />
                 <Route path='/about-us' component={AboutPage}/>
-                <Route  path='/events/:id' component={EventDetails} /> 
+                <Route  path='/events/:soc_id/:evt_name' component={EventDetails} /> 
                 <Route path='/auth' component={AuthPage} />
               </Switch>
               
