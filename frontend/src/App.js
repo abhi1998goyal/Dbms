@@ -14,13 +14,27 @@ import AboutPage from './Pages/AboutPage';
 import AuthPage from './Pages/AuthPage';
 import ErrorPage from './Pages/ErrorPage';
 import HomePage from './Pages/HomePage'
+import firebase from 'firebase'
 
  
 
 class App extends Component {
 
+componentWillMount()
+{
+  const config = {
+    apiKey: "AIzaSyAB0AqtmtFqK59GyInDUoWMkdpMQdala7Q",
+    authDomain: "dbmsproject-ef108.firebaseapp.com",
+    databaseURL: "https://dbmsproject-ef108.firebaseio.com",
+    projectId: "dbmsproject-ef108",
+    storageBucket: "dbmsproject-ef108.appspot.com",
+    messagingSenderId: "505175132080"
+  };
+  firebase.initializeApp(config);
 
+}
  
+
   render() {
     return (
       <Router>

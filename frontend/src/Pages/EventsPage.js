@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Events from '../Components/Events'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 class EventsPage extends Component {
      constructor()
@@ -69,19 +70,30 @@ class EventsPage extends Component {
        
       
     // ]
-  
+    redirectToError:false,
+    
+    
     events:[]
   }
  }
  componentDidMount()
  {
-   axios.get('http://127.0.0.1:8000/api/Event/').then(res=>this.setState({events:res.data}))
+   axios.get('http://127.0.0.1:8000/api/Event/').
+   then(res=>this.setState({events:res.data}))
+   .catch((err)=>{
+     console.log(err)
+   })
  }
     render() {
         return (
-            <div style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
-               <center> <Events events={this.state.events} /></center>
-            </div>
+            
+                <div style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
+               
+                   <center> <Events events={this.state.events} /></center>
+                   
+                    </div>
+         
+        
         );
     }
 }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {Form,Button,Input,Modal} from 'antd'
+import {Form,Button,Input} from 'antd'
+import {Modal} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import firebase from 'firebase'
 
  
 
@@ -9,48 +11,78 @@ class Auth extends Component {
     {
         super()
         this.state={
-            visible: false 
+            visible: false ,
+            email:'',
+            password:'',
+            
+
         }
         
     }
 
     
+      
+       
 
-    
-
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-        }
+        onLogin(email,password)
+        {
+        firebase.auth().signInWithEmailAndPassword(email,password)
+        .then(()=>{
+            console.log("Logged in")
+            this.setState({visible:false})
+        })
+        .catch((err)=>{console.log(err)})
         
-        hideModal = () => {
-        this.setState({
-            visible: false,
-        });
+        
+        
         }
+         
     render() {
         
         return (
              <div>
-                 <Button type='primary' style={{backgroundColor: '#DB0000',borderWidth:'0'}} onClick={this.showModal}>
-             Sign In </Button> 
+                 
+             
             <Modal
-            visible={this.state.visible}
-            onOk={this.hideModal}
-          onCancel={this.hideModal}
-          okText='Login'
+                open={this.state.visible}
+                trigger={<Button type='primary' 
+                    style={{backgroundColor: '#DB0000',borderWidth:'0'}} 
+                    onClick={()=>{this.setState({visible:true})}}
+                    >
+                    Sign In
+                </Button>}
+               
+                
+                
+                
+
             >
-                 <Form layout='inline'>
+            <Modal.Header>Sign In</Modal.Header>
+                 <br /><br /><Form layout='inline'>
                 <center>
-                <Form.Item>
-                    <Input size='large' placeholder='Enter Username' style={{width:'100%'}}  />
+                <Form.Item label='Email '>
+                    <Input size='large'
+                     placeholder='Enter Username' 
+                     style={{width:'100%'}} 
+                     value={this.state.email}
+                     
+                     onChange={(text)=>{this.setState({email:text.target.value})}}
+                     />
+                </Form.Item><br/>
+                <Form.Item label='Password '>
+                <Input size='large'
+                 placeholder='Enter Password' 
+                 type='password'
+                 value={this.state.password}
+                 onChange={(text)=>{this.setState({password:text.target.value})}}
+                 />
                 </Form.Item><br/>
                 <Form.Item>
-                <Input size='large' placeholder='Enter Password' type='password' />
-                </Form.Item><br/>
+                    <Button type='primary' style={{marginRight: 10}} onClick={()=>{this.onLogin(this.state.email,this.state.password)}}>Log In</Button>
+                    <Button type='danger' style={{marginLeft: 10}} onClick={()=>{this.setState({visible:false})}}>Cancel</Button>
+                </Form.Item><br />
                  <Form.Item>
-                 <Link to='/auth' onClick={this.hideModal}>Don't Have an Account Yet? Click Here</Link>
+                 <Link to='/auth' onClick={()=>{this.setState({visible:false})}}>Don't Have an Account Yet? Click Here</Link>
                  </Form.Item>
                 </center>
             </Form> 

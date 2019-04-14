@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
 class ErrorPage extends Component {
+    
+     
     render() {
         return (
             <div>
                 <center style={{paddingTop:  180}}>
-                   <p style={{color:'red',fontSize: 72,fontWeight: 700}}>ERROR 404</p>
-                   <h3>Page does not exist</h3>
+                   <p style={{color:'red',fontSize: 72,fontWeight: 700}}>Error 404</p>
+                    <p>Page Does not Exist</p>
+                  
                 </center>
             </div>
         );
