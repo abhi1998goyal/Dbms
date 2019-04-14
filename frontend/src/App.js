@@ -12,6 +12,7 @@ import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom';
 import EventsPage from './Pages/EventsPage';
 import AboutPage from './Pages/AboutPage';
 import AuthPage from './Pages/AuthPage';
+import ErrorPage from './Pages/ErrorPage';
 
  
 
@@ -40,7 +41,8 @@ class App extends Component {
               <Switch>
                 <Route exact path='/events' component={EventsPage} />
                 <Route path='/about-us' component={AboutPage}/>
-                <Route  path='/events/:soc_id/:evt_name' component={EventDetails} /> 
+                <Route  path='/events/:soc_id/:evt_name' component={EventDetails} />
+                <Route path='/events/:id' component={ErrorPage} /> 
                 <Route path='/auth' component={AuthPage} />
               </Switch>
               

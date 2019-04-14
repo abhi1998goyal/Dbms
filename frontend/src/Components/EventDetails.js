@@ -29,6 +29,11 @@ class EventDetails extends Component {
             this.setState({data:res.data})
             }
         }
+            ).catch(
+                ()=>{
+                    this.setState({valid_data:false})
+                this.setState({data:null})
+                }
             )
     }
 onLikePress()
