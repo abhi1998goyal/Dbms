@@ -8,14 +8,28 @@ class EventDetails extends Component {
         super()
         this.state={
             liked:false,
-            data:[]
+            data:[],
+            valid_data:true
         }
     }
-    componentDidMount()
+    componentWillMount()
     {
 
         const soc_id=this.props.match.params.soc_id
-        axios.get(`http://127.0.0.1:8000/api/Event/${soc_id}`).then((res)=>this.setState({data:res.data}))
+        const soc_name=this.props.match.params.evt_name
+        axios.get(`http://127.0.0.1:8000/api/Event/${soc_id}`).then((res)=>{
+            console.log(this.props.match.params);
+            if(soc_name!=res.data.event_name)
+            {
+                this.setState({valid_data:false})
+                this.setState({data:null})
+            }
+            else 
+            { 
+            this.setState({data:res.data})
+            }
+        }
+            )
     }
 onLikePress()
 {
@@ -26,6 +40,7 @@ onLikePress()
         
         return (
             <div>
+               {this.state.valid_data && this.state.data!=null?
                <Row>
                    <Col span={4}>
                    </Col>
@@ -45,6 +60,7 @@ onLikePress()
                     
                    </div>
                 <center><h4>By {this.state.data.organizer_id}</h4></center>
+                
                 <p style={{fontSize: 22}}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the 
                 industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
@@ -59,6 +75,7 @@ onLikePress()
                  release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing 
                  software like Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
+             
                 <Button type='primary' style={{marginRight: 10}}>REGISTER</Button>
                 
                 </center>
@@ -67,6 +84,12 @@ onLikePress()
                    <Col span={4}>
                    </Col>
                </Row>
+               :
+               <center style={{paddingTop:  180}}>
+                   <h1 style={{color:'red'}}>ERROR 404</h1>
+                   <p>This page does not exist!!</p>
+                </center>
+               }
             </div>
         );
     }
