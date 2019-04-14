@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Form,Button,Input,Modal} from 'antd'
 import {Link} from 'react-router-dom'
+
  
 
 class Auth extends Component {
@@ -10,7 +11,13 @@ class Auth extends Component {
         this.state={
             visible: false 
         }
+        
     }
+
+    
+
+    
+
     showModal = () => {
         this.setState({
             visible: true,
@@ -37,7 +44,7 @@ class Auth extends Component {
                  <Form layout='inline'>
                 <center>
                 <Form.Item>
-                    <Input size='large' placeholder='Enter Username' style={{width:'100%'}}/>
+                    <Input size='large' placeholder='Enter Username' style={{width:'100%'}}  />
                 </Form.Item><br/>
                 <Form.Item>
                 <Input size='large' placeholder='Enter Password' type='password' />

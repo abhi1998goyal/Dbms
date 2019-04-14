@@ -13,6 +13,7 @@ import EventsPage from './Pages/EventsPage';
 import AboutPage from './Pages/AboutPage';
 import AuthPage from './Pages/AuthPage';
 import ErrorPage from './Pages/ErrorPage';
+import HomePage from './Pages/HomePage'
 
  
 
@@ -28,7 +29,7 @@ class App extends Component {
         <header style={{marginTop: 20}}>
            <Row>
              <center>
-             <Col span={6}><Button  type='primary'>Home</Button></Col>
+             <Col span={6}><Link to='/'><Button  type='primary'>Home</Button></Link></Col>
              <Col span={6}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
              <Col span={6}><Link to='/about-us'><Button type='primary'>About Us</Button></Link></Col>
              <Col span={6}><Auth /></Col>
@@ -39,11 +40,13 @@ class App extends Component {
         </div>
         <div  className='App-body' style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
               <Switch>
+                <Route exact path='/' component={HomePage} />
                 <Route exact path='/events' component={EventsPage} />
                 <Route path='/about-us' component={AboutPage}/>
                 <Route  path='/events/:soc_id/:evt_name' component={EventDetails} />
                 <Route path='/events/:id' component={ErrorPage} /> 
                 <Route path='/auth' component={AuthPage} />
+                <Route path='/:id' component={ErrorPage} />
               </Switch>
               
         </div>
