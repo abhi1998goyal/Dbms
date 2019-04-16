@@ -60,16 +60,17 @@ class Auth extends Component {
             <Modal.Header>Sign In</Modal.Header>
                  <br /><br /><Form layout='inline'>
                 <center>
-                <Form.Item label='Email '>
+                    
+                <Form.Item >
                     <Input size='large'
                      placeholder='Enter Username' 
-                     style={{width:'100%'}} 
+                     
                      value={this.state.email}
                      
                      onChange={(text)=>{this.setState({email:text.target.value})}}
                      />
                 </Form.Item><br/>
-                <Form.Item label='Password '>
+                <Form.Item >
                 <Input size='large'
                  placeholder='Enter Password' 
                  type='password'
