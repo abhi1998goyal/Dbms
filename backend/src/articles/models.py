@@ -2,7 +2,7 @@ from django.db import models
 class Member(models.Model):
     name =models.CharField(max_length=120)
     email_id=models.EmailField()
-    phone_no=models.IntegerField()
+    phone_no=models.IntegerField(default=9999999999)
 
     class Meta:
         abstract=True

@@ -3,6 +3,7 @@ import {Form,Button,Input} from 'antd'
 import {Modal} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import firebase from 'firebase'
+import axios from 'axios'
 
  
 
@@ -19,23 +20,19 @@ class Auth extends Component {
         }
         
     }
-
-    
-      
-       
-
-        onLogin(email,password)
+       onLogin(email,password)
         {
         firebase.auth().signInWithEmailAndPassword(email,password)
         .then(()=>{
             console.log("Logged in")
+            axios.put('http://127.0.0.1:8000/api/Event')
+            .then(res=>console.log(res.headers))
+            .catch((err)=>console.log(err.message))
             this.setState({visible:false})
         })
         .catch((err)=>{console.log(err)})
         
-        
-        
-        }
+    }
          
     render() {
         
