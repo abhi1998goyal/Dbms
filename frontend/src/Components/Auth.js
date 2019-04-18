@@ -15,19 +15,34 @@ class Auth extends Component {
             visible: false ,
             email:'',
             password:'',
+            username:'',
+            roll_no:'',
+            phoneNo:8765467584
             
 
         }
         
     }
-       onLogin(email,password)
+       onLogin(email,password,username,roll_no)
         {
         firebase.auth().signInWithEmailAndPassword(email,password)
         .then(()=>{
             console.log("Logged in")
-            axios.put('http://127.0.0.1:8000/api/Event')
-            .then(res=>console.log(res.headers))
-            .catch((err)=>console.log(err.message))
+            axios({
+                method: 'post',
+                url: 'http://localhost:8000/api/Student/',
+                data: {
+                    roll_no:roll_no,
+                  name: username,
+                  email_id: email,
+                //   phone_no:'8585858585'
+                  
+                } 
+              }).catch(error => {
+                    console.log(error)
+              }).then(response => {
+                  console.log(response)
+              });
             this.setState({visible:false})
         })
         .catch((err)=>{console.log(err)})
@@ -57,10 +72,27 @@ class Auth extends Component {
             <Modal.Header>Sign In</Modal.Header>
                  <br /><br /><Form layout='inline'>
                 <center>
-                    
                 <Form.Item >
                     <Input size='large'
                      placeholder='Enter Username' 
+                     
+                     value={this.state.username}
+                     
+                     onChange={(text)=>{this.setState({username:text.target.value})}}
+                     />
+                </Form.Item><br/>
+                <Form.Item >
+                    <Input size='large'
+                     placeholder='Enter Roll No.' 
+                     
+                     value={this.state.roll_no}
+                     
+                     onChange={(text)=>{this.setState({roll_no:text.target.value})}}
+                     />
+                </Form.Item><br/>   
+                <Form.Item >
+                    <Input size='large'
+                     placeholder='Enter Email' 
                      
                      value={this.state.email}
                      
@@ -76,7 +108,7 @@ class Auth extends Component {
                  />
                 </Form.Item><br/>
                 <Form.Item>
-                    <Button type='primary' style={{marginRight: 10}} onClick={()=>{this.onLogin(this.state.email,this.state.password)}}>Log In</Button>
+                    <Button type='primary' style={{marginRight: 10}} onClick={()=>{this.onLogin(this.state.email,this.state.password,this.state.username,this.state.roll_no)}}>Log In</Button>
                     <Button type='danger' style={{marginLeft: 10}} onClick={()=>{this.setState({visible:false})}}>Cancel</Button>
                 </Form.Item><br />
                  <Form.Item>

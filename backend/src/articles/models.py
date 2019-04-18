@@ -1,8 +1,8 @@
 from django.db import models
 class Member(models.Model):
     name =models.CharField(max_length=120)
-    email_id=models.EmailField()
-    phone_no=models.IntegerField(default=9999999999)
+    email_id=models.EmailField(default='')
+    phone_no=models.IntegerField(default=9999999999,max_length=10)
 
     class Meta:
         abstract=True
@@ -14,6 +14,7 @@ class Organizer(Member):
     # organizer_name=model.CharField(max_length=30)
     society=models.CharField(max_length=20,choices=societies)
     ident_no=models.IntegerField(primary_key=True)
+    
     def __str__(self):
         return str(self.ident_no)
 class Events(models.Model):
@@ -30,8 +31,9 @@ class Events(models.Model):
 class Student(Member):
     roll_no=models.IntegerField(primary_key=True)
     event_part=models.ManyToManyField(Events,through='Registration')
-    def __str__(self):
-        return str(self.roll_no)
+    
+    def __int__(self):
+        return self.roll_no
 class Registration(models.Model):
     part_id=models.ForeignKey(Student,on_delete=models.CASCADE)
     event_id=models.ForeignKey(Events,on_delete=models.CASCADE)
