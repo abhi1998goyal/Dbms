@@ -1,17 +1,20 @@
 from django.db import models
-class Member(models.Model):
-    name =models.CharField(max_length=120)
-    email_id=models.EmailField(default='')
-    phone_no=models.IntegerField(default=9999999999)
+# class Member(models.Model):
+#     name =models.CharField(max_length=120)
+#     email_id=models.EmailField(default='')
+#     phone_no=models.IntegerField(default=9999999999)
 
-    class Meta:
-        abstract=True
+#     class Meta:
+#         abstract=True
 
-    def __str__(self):
-        return self.name
-class Organizer(Member):
+#     def __str__(self):
+#         return self.name
+class Organizer(models.Model):
     societies=(('TNT','thapr nautanki team'),('scim','Scimatics'),('IETE','Indian Institute of technical Eng'))
     # organizer_name=model.CharField(max_length=30)
+    name =models.CharField(max_length=120)
+    email_id=models.CharField(max_length=50)
+    phone_no=models.IntegerField(null=False,default=9999999999)
     society=models.CharField(max_length=20,choices=societies)
     ident_no=models.IntegerField(primary_key=True)
     
@@ -29,7 +32,10 @@ class Events(models.Model):
     poster_img=models.ImageField()
     def __str__(self):
         return self.event_name
-class Student(Member):
+class Student(models.Model):
+    name =models.CharField(max_length=120)
+    email_id=models.CharField(max_length=50)
+    phone_no=models.IntegerField(null=False,default=9999999999)
     roll_no=models.IntegerField(primary_key=True)
     event_part=models.ManyToManyField(Events,through='Registration')
     

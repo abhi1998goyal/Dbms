@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class AboutPage extends Component {
     render() {
         return (
-            <div>
+            <div style={{minHeight:'100vh'}}>
                 <h1>ABOUT US</h1>
             </div>
         );

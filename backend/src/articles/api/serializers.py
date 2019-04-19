@@ -3,7 +3,7 @@ from articles.models import Organizer,Events,Student,Registration
 class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
         model=Organizer
-        fields=['name','ident_no','society']
+        fields=['name','ident_no','society','phone_no','email_id']
 class EventsSerializer(serializers.ModelSerializer):
     class Meta:
         model=Events
@@ -11,7 +11,7 @@ class EventsSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Student
-        fields=['name','roll_no','event_part']
+        fields=['name','roll_no','event_part','phone_no','email_id']
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model=Registration

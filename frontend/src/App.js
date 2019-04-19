@@ -11,7 +11,7 @@ import EventDetails from './Components/EventDetails'
 import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom';
 import EventsPage from './Pages/EventsPage';
 import AboutPage from './Pages/AboutPage';
-import AuthPage from './Pages/AuthPage';
+import SignUpPage from './Pages/SignUpPage';
 import ErrorPage from './Pages/ErrorPage';
 import HomePage from './Pages/HomePage'
 import firebase from 'firebase'
@@ -19,7 +19,13 @@ import firebase from 'firebase'
  
 
 class App extends Component {
-
+constructor()
+{
+  super()
+  this.state={
+    show:true
+  }
+}
 componentWillMount()
 {
   const config = {
@@ -33,14 +39,30 @@ componentWillMount()
   firebase.initializeApp(config);
 
 }
- 
-
+ componentDidMount()
+ {
+   firebase.auth().onAuthStateChanged((user)=>{
+     if(user)
+     {
+      this.setState({show:false})
+     }
+     else
+     {
+      this.setState({show:true})
+     }
+   })
+ }
+signOut()
+{
+  firebase.auth().signOut()
+}
   render() {
     return (
       <Router>
         <div>
         <div className='App-header' style={{borderRadius: 1}}>
         <header style={{marginTop: 20}}>
+           {this.state.show?
            <Row>
              <center>
              <Col span={6}><Link to='/'><Button  type='primary'>Home</Button></Link></Col>
@@ -50,6 +72,18 @@ componentWillMount()
 
              </center>
            </Row>
+           :
+           <Row>
+             <center>
+           <Col span={6}><Link to='/'><Button  type='primary'>Home</Button></Link></Col>
+             <Col span={6}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
+             <Col span={6}><Link to='/about-us'><Button type='primary'>About Us</Button></Link></Col>
+             <Col span={6}><Button type='primary' 
+             style={{backgroundColor: '#DB0000',borderWidth:'0'}} 
+             onClick={()=>{this.signOut()}}>Log Out</Button></Col>
+             </center>
+             </Row>
+           }
         </header>
         </div>
         <div  className='App-body' style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
@@ -59,7 +93,7 @@ componentWillMount()
                 <Route path='/about-us' component={AboutPage}/>
                 <Route  path='/events/:soc_id/:evt_name' component={EventDetails} />
                 <Route path='/events/:id' component={ErrorPage} /> 
-                <Route path='/auth' component={AuthPage} />
+                <Route path='/auth' component={SignUpPage} />
                 <Route path='/:id' component={ErrorPage} />
               </Switch>
               
