@@ -11,7 +11,15 @@ class Member(models.Model):
     def __str__(self):
         return self.name
 class Organizer(Member):
-    societies=(('TNT','thapr nautanki team'),('scim','Scimatics'),('IETE','Indian Institute of technical Eng'))
+    # societies=(('TNT','thapr nautanki team'),('scim','Scimatics'),('IETE','Indian Institute of technical Eng'))
+    societies=(('TNT','Thapar Nautanki Team'),
+        ('SCIM','Scimatics'),
+        ('IETE','The Institution of Electronics and Telecommunication Engineers'),
+        ('CCS','Creative Computing Society'),
+        ('LitSoc','Literary Society'),
+        ('Mudra','Music and Drama Society'),
+        ('FAPS','FINE ARTS AND PHOTOGRAPHY SOCIETY')
+        )
     # organizer_name=model.CharField(max_length=30)
     society=models.CharField(max_length=20,choices=societies)
     ident_no=models.IntegerField(primary_key=True)
@@ -19,7 +27,7 @@ class Organizer(Member):
         return str(self.ident_no)
 class Events(models.Model):
     events_type=(('s','Sports'),('t','Technical'),('c','Cultural'))
-    events_div=(('w','workshop'),('com','competition'),('con','conference'))
+    events_div=(('w','workshop'),('comp','competition'),('conf','conference'))
     event_date=models.DateField()
     event_type=models.CharField(max_length=20,choices=events_type)
     event_div=models.CharField(max_length=20,choices=events_div)
