@@ -12,8 +12,8 @@ class HomePage extends Component {
                
                 <br/>
                <Carousel autoplay >
-                 <div ><img src={img1} height={500} width='95%'/></div>
-                 <div><img src={img2} height={500} width='95%'/></div>
+                 <div ><img src={img2} height={500} width='95%'/></div>
+                 <div><img src={img1} height={500} width='95%'/></div>
                  <div><img src={img3} height={500} width='95%'/></div>
                </Carousel>
                    

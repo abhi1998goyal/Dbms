@@ -15,6 +15,7 @@ import SignUpPage from './Pages/SignUpPage';
 import ErrorPage from './Pages/ErrorPage';
 import HomePage from './Pages/HomePage'
 import firebase from 'firebase'
+import Footer from './Components/Footer'
 
  
 
@@ -100,7 +101,7 @@ signOut()
               
         </div>
         <div>
-          <h1>FOOTER</h1>
+          <Footer />
         </div>
       </div>
       </Router>
