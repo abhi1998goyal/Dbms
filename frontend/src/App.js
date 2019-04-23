@@ -54,6 +54,7 @@ componentWillMount()
  }
 signOut()
 {
+  // #369AB1, #65AF62
   firebase.auth().signOut()
 }
   render() {
@@ -86,8 +87,8 @@ signOut()
            }
         </header>
         </div>
-        <div  className='App-body' style={{background:'linear-gradient(to right bottom, #369AB1, #65AF62)'}}>
-              <Switch>
+        <div  className='App-body' style={{background:'linear-gradient(to right bottom, #EA3131, #F7AF62)'}}>
+            <center>  <Switch>
                 <Route exact path='/' component={HomePage} />
                 <Route exact path='/events' component={EventsPage} />
                 <Route path='/about-us' component={AboutPage}/>
@@ -95,7 +96,7 @@ signOut()
                 <Route path='/events/:id' component={ErrorPage} /> 
                 <Route path='/auth' component={SignUpPage} />
                 <Route path='/:id' component={ErrorPage} />
-              </Switch>
+              </Switch></center>
               
         </div>
         <div>
