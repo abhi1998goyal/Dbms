@@ -63,7 +63,7 @@ signOut()
       <Router>
         <div>
         <div className='App-header' style={{borderRadius: 1}}>
-        <header style={{marginTop: 20}}>
+        <header style={{marginTop: 6}}>
            {this.state.show?
            <Row>
              <center>
