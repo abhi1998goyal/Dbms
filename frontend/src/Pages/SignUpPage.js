@@ -69,6 +69,7 @@ class AuthPage extends Component {
                 url: 'http://localhost:8000/api/Student/',
                 data: {
                 roll_no:roll_no,
+                user_type:'u',
                 name: username,
                 email_id: "thapar"+roll_no+"@gmail.com",
                 phone_no:phone_no
@@ -96,6 +97,7 @@ class AuthPage extends Component {
                 data: {
                 ident_no:roll_no,
                 name: username,
+                user_type:'o',
                 email_id: "thapar"+roll_no+"@gmail.com",
                 phone_no:phone_no,
                 society:this.state.soc_choice

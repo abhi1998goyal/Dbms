@@ -4,6 +4,7 @@ class Member(models.Model):
     name =models.CharField(max_length=120)
     email_id=models.EmailField()
     phone_no=models.IntegerField()
+    user_type=models.CharField(max_length=1)
 
     class Meta:
         abstract=True
@@ -31,8 +32,9 @@ class Events(models.Model):
     event_date=models.DateField()
     event_type=models.CharField(max_length=20,choices=events_type)
     event_div=models.CharField(max_length=20,choices=events_div)
+    event_id=models.CharField(max_length=20,primary_key=True)
     event_name=models.CharField(max_length=20)
-    organizer_id=models.OneToOneField(Organizer,on_delete=models.CASCADE,primary_key=True)
+    organizer_id=models.ForeignKey(Organizer,on_delete=models.CASCADE)
     poster_img=models.ImageField()
     def __str__(self):
         return self.event_name
