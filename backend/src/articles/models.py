@@ -4,7 +4,7 @@ class Member(models.Model):
     name =models.CharField(max_length=120)
     email_id=models.EmailField()
     phone_no=models.IntegerField()
-    user_type=models.CharField(max_length=1)
+    userType=models.CharField(max_length=1,default='x')
 
     class Meta:
         abstract=True
@@ -22,6 +22,7 @@ class Organizer(Member):
         ('FAPS','FINE ARTS AND PHOTOGRAPHY SOCIETY')
         )
     # organizer_name=model.CharField(max_length=30)
+    
     society=models.CharField(max_length=20,choices=societies)
     ident_no=models.IntegerField(primary_key=True)
     def __str__(self):
@@ -39,6 +40,7 @@ class Events(models.Model):
     def __str__(self):
         return self.event_name
 class Student(Member):
+     
     roll_no=models.IntegerField(primary_key=True)
     event_part=models.ManyToManyField(Events,through='Registration')
     def __str__(self):

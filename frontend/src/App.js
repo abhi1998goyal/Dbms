@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'antd/dist/antd.css';
 import axios from 'axios'
-import {Row,Col,Button,Modal} from 'antd'
+import {Row,Col,Button,Modal,Spin} from 'antd'
 
 import Events from './Components/Events'
 import Auth from './Components/Auth'
@@ -16,6 +16,7 @@ import ErrorPage from './Pages/ErrorPage';
 import HomePage from './Pages/HomePage'
 import firebase from 'firebase'
 import Footer from './Components/Footer'
+import CreateEventPage from './Pages/CreateEventPage';
 
  
 
@@ -24,7 +25,9 @@ constructor()
 {
   super()
   this.state={
-    show:true
+    show:false,
+    create_event:false,
+    loading:true
   }
 }
 componentWillMount()
@@ -41,17 +44,40 @@ componentWillMount()
 
 }
  componentDidMount()
- {
+ {  
    firebase.auth().onAuthStateChanged((user)=>{
      if(user)
      {
-      this.setState({show:false})
+
+      this.setState({show:true,loading:false})
+      const email_id=user.email
+      const p=email_id.indexOf('r')
+      const q=email_id.indexOf('@')
+      const id=email_id.substr(p+1,q-p-1)
+      
+      firebase.database().ref(id).on('value',ss=>{
+        let addr=ss.val().path
+        axios.get(addr).then(res=>{
+          let user_type=res.data.userType
+          if(user_type=='u')
+          {
+            this.setState({create_event:false})
+          }
+          else
+          {
+            this.setState({create_event:true})
+          }
+        })
+      })
+      
+
      }
      else
      {
-      this.setState({show:true})
+      this.setState({show:false,loading:false})
      }
    })
+   
  }
 signOut()
 {
@@ -64,23 +90,40 @@ signOut()
         <div>
         <div className='App-header' style={{borderRadius: 1}}>
         <header style={{marginTop: 6}}>
-           {this.state.show?
+           {!this.state.show?
            <Row>
              <center>
              <Col span={6}><Link to='/'><Button  type='primary'>Home</Button></Link></Col>
              <Col span={6}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
+             {
+
+             }
              <Col span={6}><Link to='/about-us'><Button type='primary'>About Us</Button></Link></Col>
-             <Col span={6}><Auth /></Col>
+             <Col span={6}>
+              {
+                this.state.loading?
+                <Spin />
+                :
+              <Auth />
+              }
+
+             </Col>
 
              </center>
            </Row>
            :
            <Row>
              <center>
-           <Col span={6}><Link to='/'><Button  type='primary'>Home</Button></Link></Col>
-             <Col span={6}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
-             <Col span={6}><Link to='/about-us'><Button type='primary'>About Us</Button></Link></Col>
-             <Col span={6}><Button type='primary' 
+           <Col span={5}><Link to='/'><Button  type='primary'>Home</Button></Link></Col>
+             <Col span={5}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
+             {
+               this.state.create_event?
+               <Col span={4}><Button type='primary'>Create</Button></Col>
+               :
+               <Col span={4}><Spin size='small'/></Col>
+             }
+             <Col span={5}><Link to='/about-us'><Button type='primary'>About Us</Button></Link></Col>
+             <Col span={5}><Button type='primary' 
              style={{backgroundColor: '#DB0000',borderWidth:'0'}} 
              onClick={()=>{this.signOut()}}>Log Out</Button></Col>
              </center>
@@ -93,6 +136,7 @@ signOut()
                 <Route exact path='/' component={HomePage} />
                 <Route exact path='/events' component={EventsPage} />
                 <Route path='/about-us' component={AboutPage}/>
+                <Route path='/create-event' component={CreateEventPage} />
                 <Route  path='/events/:soc_id/:evt_name' component={EventDetails} />
                 <Route path='/events/:id' component={ErrorPage} /> 
                 <Route path='/auth' component={SignUpPage} />

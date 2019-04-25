@@ -69,7 +69,7 @@ class AuthPage extends Component {
                 url: 'http://localhost:8000/api/Student/',
                 data: {
                 roll_no:roll_no,
-                user_type:'u',
+                userType:'u',
                 name: username,
                 email_id: "thapar"+roll_no+"@gmail.com",
                 phone_no:phone_no
@@ -78,11 +78,12 @@ class AuthPage extends Component {
             }).catch(error => {
                     console.log(error)
             }).then(response => {
+                firebase.database().ref(roll_no)
+            firebase.database().ref(`${roll_no}`).child('path').set(`http://localhost:8000/api/Student/${roll_no}`)
+            this.setState({visible:false})
                 console.log(response)
             });
-            firebase.database().ref('Students').child(roll_no)
-            firebase.database().ref(`Students/${roll_no}`).child('path').set(`http://localhost:8000/api/Student/${roll_no}`)
-            this.setState({visible:false})
+            
         })
         .catch((err)=>{console.log(err)})
     }
@@ -97,7 +98,7 @@ class AuthPage extends Component {
                 data: {
                 ident_no:roll_no,
                 name: username,
-                user_type:'o',
+                userType:'o',
                 email_id: "thapar"+roll_no+"@gmail.com",
                 phone_no:phone_no,
                 society:this.state.soc_choice
@@ -106,11 +107,12 @@ class AuthPage extends Component {
             }).catch(error => {
                     console.log(error)
             }).then(response => {
+                firebase.database().ref(roll_no)
+            firebase.database().ref(`${roll_no}`).child('path').set(`http://localhost:8000/api/Organizer/${roll_no}`)
+            this.setState({visible:false})
                 console.log(response)
             });
-            firebase.database().ref('Organizers').child(roll_no)
-            firebase.database().ref(`Organizers/${roll_no}`).child('path').set(`http://localhost:8000/api/Organizer/${roll_no}`)
-            this.setState({visible:false})
+            
         })
         .catch((err)=>{console.log(err)})
     }
