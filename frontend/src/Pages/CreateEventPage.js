@@ -69,6 +69,8 @@ class CreateEventPage extends Component {
         this.deleteFromFirebase=this.deleteFromFirebase.bind(this)
     }
 
+    
+
     onFileLoad=(e)=>{
         if(e.target.files[0])
         {
@@ -120,7 +122,7 @@ class CreateEventPage extends Component {
             event_format:value
         })
     }
-    componentDidMount()
+    componentWillMount()
     {
         firebase.auth().onAuthStateChanged(user=>{
             if(user)
@@ -129,7 +131,21 @@ class CreateEventPage extends Component {
                 const p=email_id.indexOf('r')
                 const q=email_id.indexOf('@')
                 const id=email_id.substr(p+1,q-p-1)
-                this.setState({org_id:id,loading:false,showData:true})
+                // this.setState({org_id:id,loading:false,showData:true})
+                firebase.database().ref(id).on('value',ss=>{
+                    let addr=ss.val().path
+                    axios.get(addr).then(res=>{
+                      let user_type=res.data.userType
+                      if(user_type=='u')
+                      {
+                        this.setState({loading:false,showData:false})
+                      }
+                      else
+                      {
+                        this.setState({org_id:id,loading:false,showData:true})
+                      }
+                    })
+                  })
             }
             else
             {

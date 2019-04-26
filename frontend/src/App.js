@@ -26,7 +26,7 @@ constructor()
   super()
   this.state={
     show:false,
-    create_event:false,
+    event:'loading',
     loading:true
   }
 }
@@ -61,11 +61,11 @@ componentWillMount()
           let user_type=res.data.userType
           if(user_type=='u')
           {
-            this.setState({create_event:false})
+            this.setState({event:'user'})
           }
           else
           {
-            this.setState({create_event:true})
+            this.setState({event:'org'})
           }
         })
       })
@@ -74,7 +74,7 @@ componentWillMount()
      }
      else
      {
-      this.setState({show:false,loading:false})
+      this.setState({show:false,loading:false,event:''})
      }
    })
    
@@ -117,10 +117,14 @@ signOut()
            <Col span={5}><Link to='/'><Button  type='primary'>Home</Button></Link></Col>
              <Col span={5}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
              {
-               this.state.create_event?
+               this.state.event=='org'?
                <Col span={4}><Link to='/create-event'><Button type='primary'>Create</Button></Link></Col>
-               :
+               :this.state.event=='user'?
+               <Col span={4}><Button type='primary'>Your Events</Button></Col>
+               :this.state.event=='loading'?
                <Col span={4}><Spin size='small'/></Col>
+               :
+              <Col span={4} />
              }
              <Col span={5}><Link to='/about-us'><Button type='primary'>About Us</Button></Link></Col>
              <Col span={5}><Button type='primary' 
