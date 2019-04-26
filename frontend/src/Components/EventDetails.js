@@ -9,7 +9,8 @@ class EventDetails extends Component {
         this.state={
             liked:false,
             data:[],
-            valid_data:true
+            valid_data:true,
+            socName:''
         }
     }
     componentWillMount()
@@ -27,6 +28,9 @@ class EventDetails extends Component {
             else 
             { 
             this.setState({data:res.data})
+            axios.get(`http://127.0.0.1:8000/api/Organizer/${res.data.organizer_id}`)
+            .then(resp=>this.setState({socName:resp.data.society}))
+
             }
         }
             ).catch(
@@ -44,7 +48,7 @@ onLikePress()
     render() {
         
         return (
-            <div>
+            <div style={{minHeight:'100vh'}}> 
                {this.state.valid_data && this.state.data!=null?
                <Row>
                    <Col span={4}>
@@ -64,7 +68,7 @@ onLikePress()
                    
                     
                    </div>
-                <center><h4>By {this.state.data.organizer_id}</h4></center>
+                <center><h4>By {this.state.socName}</h4></center>
                 
                 <p style={{fontSize: 22}}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the 

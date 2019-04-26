@@ -13,8 +13,9 @@ class Events extends Component {
                 name={item.event_name} 
                 desc='Lorem Impsum' 
                 date={item.event_date} 
-                linkId={`${item.organizer_id}${item.event_name}`} 
-                socName={item.organizer_id}
+                event_id={item.event_id}
+                 
+                orgId={item.organizer_id}
                 cover_img={item.poster_img}
                 />
             </Col>

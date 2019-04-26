@@ -118,7 +118,7 @@ signOut()
              <Col span={5}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
              {
                this.state.create_event?
-               <Col span={4}><Button type='primary'>Create</Button></Col>
+               <Col span={4}><Link to='/create-event'><Button type='primary'>Create</Button></Link></Col>
                :
                <Col span={4}><Spin size='small'/></Col>
              }

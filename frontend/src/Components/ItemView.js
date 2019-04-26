@@ -11,10 +11,10 @@ class ItemView extends Component {
                 <p>{this.props.desc}</p>
                 <p>{this.props.date}</p>
               <Link to={{
-                    pathname:`/events/${this.props.socName}/${this.props.name}`,
+                    pathname:`/events/${this.props.event_id}/${this.props.name}`,
                     query:{
                         title:this.props.name,
-                        societyName:this.props.socName
+                        societyId:this.props.orgId
                     }
                     
                 }}>  <Button>More Information</Button></Link>
