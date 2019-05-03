@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from .views import OrganizerViewSet,EventsViewSet,StudentViewSet, RegistrationViewSet
-
+from .import views
 # urlpatterns=[
 #      path('',ArticleListView.as_view()),
 #      path('<pk>',ArticleDetailView.as_view()),
@@ -9,11 +9,14 @@ from .views import OrganizerViewSet,EventsViewSet,StudentViewSet, RegistrationVi
 
 
 # ]
+urlpatterns=[
+    path('subscribe/<slug:email>',views.subscribe,name='subscribe')    
 
+]
 
 router = DefaultRouter()
 router.register(r'Organizer', OrganizerViewSet, basename='Organizer')
 router.register(r'Event', EventsViewSet, basename='Event')
 router.register(r'Student', StudentViewSet, basename='Student')
 router.register(r'Registration', RegistrationViewSet, basename='Registration')
-urlpatterns = router.urls
+urlpatterns += router.urls
