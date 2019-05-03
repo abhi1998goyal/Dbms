@@ -26,6 +26,14 @@ SECRET_KEY = '=%t&c#(6o-x=mxxoe4dq_af+th_w-rdga+z8b6(q%c6&h326jo'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+SEND_GRID_API_KEY=''
+EMAIL_HOST_USER='smtp.sendgrid.net'
+DEFAULT_FROM_EMAIL=''
+EMAIL_HOST_PASSWORD=''
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL=''
+ACCOUNT_EMAIL_SUBJECT_PREFIX=''
 
 
 # Application definition
@@ -125,3 +133,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL=True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
