@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Form,Button,Input,Card,Row,Col,Radio} from 'antd'
-import {Link} from 'react-router-dom'
+import {Link,Redirect} from 'react-router-dom'
 import firebase from 'firebase'
 import axios from 'axios'
 import RadioGroup from 'antd/lib/radio/group';
@@ -36,10 +36,23 @@ class AuthPage extends Component {
             roll_no:null,
             user_type:-1,
             phoneNo:null,
-            soc_choice:''
+            soc_choice:'',
+            actual_email:'',
+            redirect: false
 
         }
     }
+
+    setRedirect = () => {
+        this.setState({
+          redirect: true
+        })
+      }
+      renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/' />
+        }
+      }
 
     onSelect(e)
     {
@@ -71,6 +84,7 @@ class AuthPage extends Component {
                 roll_no:roll_no,
                 userType:'u',
                 name: username,
+                 
                 email_id: "thapar"+roll_no+"@gmail.com",
                 phone_no:phone_no
                 
@@ -80,8 +94,10 @@ class AuthPage extends Component {
             }).then(response => {
                 firebase.database().ref(roll_no)
             firebase.database().ref(`${roll_no}`).child('path').set(`http://localhost:8000/api/Student/${roll_no}`)
+            firebase.database().ref(`${roll_no}`).child('email').set(`${this.state.actual_email}`)
+
             this.setState({visible:false})
-                console.log(response)
+                this.setRedirect()
             });
             
         })
@@ -110,7 +126,7 @@ class AuthPage extends Component {
                 firebase.database().ref(roll_no)
             firebase.database().ref(`${roll_no}`).child('path').set(`http://localhost:8000/api/Organizer/${roll_no}`)
             this.setState({visible:false})
-                console.log(response)
+            this.setRedirect()
             });
             
         })
@@ -123,7 +139,7 @@ class AuthPage extends Component {
          
         return (
             <div style={{minHeight:'100vh'}}>
-        
+        {this.renderRedirect()}
               <center>
              
                     <Form style={{width: 300,paddingTop:150}}>
@@ -145,14 +161,31 @@ class AuthPage extends Component {
                         </Form.Item></Col>
                     </Row>
                     <Row>
-                        <Col span={6} style={{textAlign: 'justify'}}>Roll No</Col>
+                    {this.state.user_type==0|| this.state.userType==-1?
+                        <Col span={6} style={{textAlign: 'justify'}}>Roll No.</Col>
+                        :
+                        <Col span={6} style={{textAlign: 'justify'}}>Employee ID</Col>
+                    }
                         <Col span={20}>
                         <Form.Item>
-                            <Input placeholder='Enter Thapar Roll No.' 
+                            <Input placeholder={this.state.user_type==0||this.state.user_type==-1?'Enter Thapar Roll No.':'Enter Employee ID'} 
                             value={this.state.roll_no} 
                              onChange={(text)=>{this.setState({roll_no:text.target.value})}} />
                         </Form.Item></Col>
                     </Row>
+                    {this.state.user_type==0?
+                    <Row>
+                        <Col span={6} style={{textAlign: 'justify'}}>Email Id</Col>
+                        <Col span={20}>
+                        <Form.Item>
+                            <Input placeholder='Enter Email Id' 
+                            value={this.state.actual_email} 
+                             onChange={(text)=>{this.setState({actual_email:text.target.value})}} />
+                        </Form.Item></Col>
+                    </Row>
+                    :
+                    null
+                    }
                     
                     <Row>
                         <Col span={6} style={{textAlign: 'justify'}}>Phone No.</Col>
@@ -190,7 +223,8 @@ class AuthPage extends Component {
                                 this.state.roll_no,
                                 this.state.roll_no,
                                 this.state.phoneNo,
-                                this.state.soc_choice
+                                this.state.soc_choice,
+                                this.state.actual_email
                             )}}>
                                 Sign Up
                             </Button>

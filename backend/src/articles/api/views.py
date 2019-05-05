@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from articles.models import Organizer,Events,Student,Registration
-from .serializers import OrganizerSerializer,EventsSerializer,StudentSerializer,RegistrationSerializer
+from articles.models import Organizer,Events,Student,Registration,Transactions,PaymentSuccess
+from .serializers import OrganizerSerializer,EventsSerializer,StudentSerializer,RegistrationSerializer,TransactionSerializer,PaymentSuccessSerializer
 from django.core.mail import send_mail
 from djreact import settings
 from django.http import HttpResponse
@@ -28,6 +28,16 @@ class RegistrationViewSet(viewsets.ModelViewSet):
     queryset=Registration.objects.all()
     serializer_class=RegistrationSerializer
 #     @action(detail=True)
+
+class TransactionViewSet(viewsets.ModelViewSet):
+    queryset=Transactions.objects.all()
+    serializer_class=TransactionSerializer
+
+class PaymentSuccessViewSet(viewsets.ModelViewSet):
+    queryset=PaymentSuccess.objects.all()
+    serializer_class=PaymentSuccessSerializer
+#     @action(detail=True)
+
     
 def subscribe(request,email):
     send_mail(

@@ -62,7 +62,9 @@ class CreateEventPage extends Component {
             loading:true,
             showData:false,
             uploading:-1,
-            complete:false
+            complete:false,
+            reg_fee:0,
+            event_desc:''
         }
         this.onFileLoad=this.onFileLoad.bind(this)
         this.uploadToFirebase=this.uploadToFirebase.bind(this)
@@ -167,11 +169,13 @@ class CreateEventPage extends Component {
             data: {
             event_id:this.state.org_id+'_'+this.state.name.replace(/\s/g, ''),
             event_name:this.state.name,
-            organizer_id:19015016,
+            organizer_id:this.state.org_id,
             poster_img:this.state.posterImg,
             event_type:this.state.type,
             event_div:this.state.event_format,
-            event_date:this.state.date            
+            event_date:this.state.date ,
+            event_desc:this.state.event_desc,
+            reg_fee:this.state.reg_fee           
             } 
         }).catch(error => {
                 console.log(error)
@@ -181,12 +185,8 @@ class CreateEventPage extends Component {
                 name:'',
                 date:'',
                 type:'',
-                
                 posterImg:'',
-                
                 event_format:'',
-                
-                
                 uploading:-1,
                 complete:false 
             });
@@ -197,7 +197,7 @@ class CreateEventPage extends Component {
      
     render() {
         return (this.state.showData?
-            <div style={{minHeight:'100vh',width: 300,paddingTop:150}}>
+            <div style={{minHeight:'100vh',width: 300,paddingTop:70}}>
                 
                 <DatePicker onChange={(date,dateString)=>{this.onDateSelect(date,dateString)}} />
                     <br/><br/>
@@ -221,7 +221,18 @@ class CreateEventPage extends Component {
                             fluid
                             
                             value={this.state.event_format} /><br/><br/>
-                
+                <Input.TextArea 
+                row={5} 
+                placeholder='Enter Event Description'
+                value={this.state.event_desc}
+
+                onChange={(text)=>{this.setState({event_desc:text.target.value})}}
+                />
+                <br/><br/>
+                <Input placeholder='Enter Registration Fee' 
+                value={this.state.reg_fee} 
+                onChange={(text)=>{this.setState({reg_fee:text.target.value})}}/>
+                <br /><br/>
                 <Row>
                     <Col span={14}>
                     <input type='file' onChange={this.onFileLoad}/>

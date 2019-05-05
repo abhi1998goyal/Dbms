@@ -26,7 +26,7 @@ class EventsPage extends Component {
     render() {
         return (
             
-                <div style={{background:'linear-gradient(to right bottom, #EA3131, #F7AF62)',minHeight:'300vh'}} >
+                <div style={{background:'linear-gradient(to right bottom, #EA3131, #F7AF62)',minHeight:'140vh'}} >
                
                    <center> <Events events={this.state.events} /></center>
                    

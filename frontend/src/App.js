@@ -8,7 +8,7 @@ import {Row,Col,Button,Modal,Spin} from 'antd'
 import Events from './Components/Events'
 import Auth from './Components/Auth'
 import EventDetails from './Components/EventDetails'
-import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom';
+import {BrowserRouter as Router,Route,Link,Switch } from 'react-router-dom';
 import EventsPage from './Pages/EventsPage';
 import AboutPage from './Pages/AboutPage';
 import SignUpPage from './Pages/SignUpPage';
@@ -17,6 +17,9 @@ import HomePage from './Pages/HomePage'
 import firebase from 'firebase'
 import Footer from './Components/Footer'
 import CreateEventPage from './Pages/CreateEventPage';
+import ProfilePage from './Pages/ProfilePage';
+import OrgPage from './Pages/OrgPage';
+import TransactionPage from './Pages/TransactionPage';
 
  
 
@@ -27,7 +30,9 @@ constructor()
   this.state={
     show:false,
     event:'loading',
-    loading:true
+    loading:true,
+    userId:''
+     
   }
 }
 componentWillMount()
@@ -43,6 +48,7 @@ componentWillMount()
   firebase.initializeApp(config);
 
 }
+ 
  componentDidMount()
  {  
    firebase.auth().onAuthStateChanged((user)=>{
@@ -54,7 +60,7 @@ componentWillMount()
       const p=email_id.indexOf('r')
       const q=email_id.indexOf('@')
       const id=email_id.substr(p+1,q-p-1)
-      
+      this.setState({userId:id})
       firebase.database().ref(id).on('value',ss=>{
         let addr=ss.val().path
         axios.get(addr).then(res=>{
@@ -118,9 +124,9 @@ signOut()
              <Col span={5}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
              {
                this.state.event=='org'?
-               <Col span={4}><Link to='/create-event'><Button type='primary'>Create</Button></Link></Col>
+               <Col span={4}><Link to={`/org/${this.state.userId}`}><Button type='primary'>Profile</Button></Link></Col>
                :this.state.event=='user'?
-               <Col span={4}><Button type='primary'>Your Events</Button></Col>
+               <Col span={4}><Link to={`/user/${this.state.userId}`}><Button type='primary'>Profile</Button></Link></Col>
                :this.state.event=='loading'?
                <Col span={4}><Spin size='small'/></Col>
                :
@@ -143,8 +149,13 @@ signOut()
                 <Route path='/create-event' component={CreateEventPage} />
                 <Route  path='/events/:soc_id/:evt_name' component={EventDetails} />
                 <Route path='/events/:id' component={ErrorPage} /> 
+                <Route path='/user/:id' component={ProfilePage} />
+                <Route path='/org/:id' component={OrgPage} />
+                <Route path='/transaction/:id' component={TransactionPage} />
                 <Route path='/auth' component={SignUpPage} />
                 <Route path='/:id' component={ErrorPage} />
+                
+                
               </Switch></center>
               
         </div>
