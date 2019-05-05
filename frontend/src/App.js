@@ -17,9 +17,6 @@ import HomePage from './Pages/HomePage'
 import firebase from 'firebase'
 import Footer from './Components/Footer'
 import CreateEventPage from './Pages/CreateEventPage';
-import SendEmail from './Pages/SendEmail';
-import ProfilePage from './Pages/ProfilePage';
-import OrgPage from './Pages/OrgPage'
 
  
 
@@ -30,9 +27,7 @@ constructor()
   this.state={
     show:false,
     event:'loading',
-    loading:true,
-    
-    userId:''
+    loading:true
   }
 }
 componentWillMount()
@@ -59,7 +54,7 @@ componentWillMount()
       const p=email_id.indexOf('r')
       const q=email_id.indexOf('@')
       const id=email_id.substr(p+1,q-p-1)
-      this.setState({userId:id})
+      
       firebase.database().ref(id).on('value',ss=>{
         let addr=ss.val().path
         axios.get(addr).then(res=>{
@@ -67,12 +62,10 @@ componentWillMount()
           if(user_type=='u')
           {
             this.setState({event:'user'})
-            
           }
           else
           {
             this.setState({event:'org'})
-             
           }
         })
       })
@@ -125,9 +118,9 @@ signOut()
              <Col span={5}><Link to='/events'><Button type='primary'>Events</Button></Link></Col>
              {
                this.state.event=='org'?
-               <Col span={4}><Link to={`/org/${this.state.userId}`}><Button type='primary'>Profile</Button></Link></Col>
+               <Col span={4}><Link to='/create-event'><Button type='primary'>Create</Button></Link></Col>
                :this.state.event=='user'?
-               <Col span={4}><Link to={`/user/${this.state.userId}`}><Button type='primary'>Profile</Button></Link></Col>
+               <Col span={4}><Button type='primary'>Your Events</Button></Col>
                :this.state.event=='loading'?
                <Col span={4}><Spin size='small'/></Col>
                :
@@ -148,15 +141,10 @@ signOut()
                 <Route exact path='/events' component={EventsPage} />
                 <Route path='/about-us' component={AboutPage}/>
                 <Route path='/create-event' component={CreateEventPage} />
-                
-                <Route path='/user/:id' component={ProfilePage}/>
-                <Route path='/org/:id' component={OrgPage} />
                 <Route  path='/events/:soc_id/:evt_name' component={EventDetails} />
                 <Route path='/events/:id' component={ErrorPage} /> 
                 <Route path='/auth' component={SignUpPage} />
-                <Route path='/email' component={SendEmail} />
                 <Route path='/:id' component={ErrorPage} />
-                
               </Switch></center>
               
         </div>

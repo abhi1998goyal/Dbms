@@ -26,16 +26,14 @@ SECRET_KEY = '=%t&c#(6o-x=mxxoe4dq_af+th_w-rdga+z8b6(q%c6&h326jo'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-SEND_GRID_API_KEY='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'
-#EMAIL_HOST = 'smtp.gmail.com'
+SEND_GRID_API_KEY=''
 EMAIL_HOST_USER='smtp.sendgrid.net'
-#EMAIL_HOST_USER='anish.mendiratta@gmail.com'
-DEFAULT_FROM_EMAIL='anish.mendiratta@gmail.com'
-EMAIL_HOST_PASSWORD='anish123@'
-EMAIL_PORT=465
+DEFAULT_FROM_EMAIL=''
+EMAIL_HOST_PASSWORD=''
+EMAIL_PORT=587
 EMAIL_USE_TLS=True
-
-ACCOUNT_EMAIL_SUBJECT_PREFIX='EVENT'
+DEFAULT_FROM_EMAIL=''
+ACCOUNT_EMAIL_SUBJECT_PREFIX=''
 
 
 # Application definition
@@ -135,5 +133,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL=True
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

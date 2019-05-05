@@ -34,6 +34,6 @@ def subscribe(request,email):
      'Subject here',
         'Here is the message.',
      settings.DEFAULT_FROM_EMAIL,
-     ['anish.mendiratta@gmail.com'],
+     ['agoyal5_be16@thapar.edu'],
      fail_silently=False,)
     return HttpResponse("<h1>Thanks for Registering<h1>")
